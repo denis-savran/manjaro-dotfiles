@@ -1,0 +1,36 @@
+[user]
+    name = Denis Savran
+    email = denis.savran@outlook.com
+[core]
+    autocrlf = false
+    safecrlf = true
+[url "git@github-alytics:alytics"]
+    insteadOf = git@github.com:alytics
+[push]
+    default = current
+[pull]
+    ff = only
+[alias]
+    alias = !git config --get-regexp 'alias.*' | cut -d '.' -f 2
+
+    ec = config --global --edit
+
+    dt = difftool
+    isignored = check-ignore -v --
+    undoamend = reset --soft HEAD@{1}
+[diff]
+    guitool = kdiff3
+[difftool "kdiff3"]
+    path = kdiff3
+[difftool]
+    prompt = false
+    keepBackup = false
+    trustExitCode = false
+[merge]
+    tool = kdiff3
+[mergetool]
+    prompt = false
+    keepBackup = false
+    keepTemporaries = false
+[mergetool "kdiff3"]
+    path = kdiff3

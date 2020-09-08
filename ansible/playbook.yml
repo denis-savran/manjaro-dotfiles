@@ -1,0 +1,178 @@
+- hosts: all
+  become: true
+
+  vars:
+    user: denis
+    hostname: "{{ user }}-pc"
+
+  tasks:
+    # DEBUG
+    # - debug: msg="HOSTNAME={{ hostname.split('-')[-1] }}."
+    # - name: Create directories
+    #   file:
+    #     path: "{{ lookup('env','HOME') }}/test_dir"
+    #     state: directory
+    # - meta: end_play
+
+    - name: Disable quiet booting
+      replace:
+        path: /etc/default/grub
+        regexp: '^GRUB_CMDLINE_LINUX_DEFAULT=".*?"$'
+        replace: 'GRUB_CMDLINE_LINUX_DEFAULT="apparmor=1 security=apparmor udev.log_priority=3"'
+
+    - name: Enable pacman color option
+      replace:
+        path: /etc/pacman.conf
+        regexp: '^#Color$'
+        replace: 'Color'
+
+    - name: Create groups
+      group:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - docker
+
+    - name: Create user
+      user:
+        name: "{{ user }}"
+        shell: /usr/bin/zsh
+        groups:
+          - docker
+        append: true
+
+    - name: Upgrade packages
+      pacman:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install packages
+      pacman:
+        name:
+          # KDE
+          - latte-dock  # Application dock
+          - appmenu-gtk-module  # Application menu (Global Menu widget)
+          - libdbusmenu-glib  # Application menu (Global Menu widget)
+          # Terminal programs
+          - pacman-contrib  # Additional pacman tools
+          - xcape  # Use modifier key as another key when pressed and released on it's own
+          - xclip  # Command line interface to X clipboard (used by other programs)
+          - neovim  # Text editor
+          - python-pynvim  # Python plugins support in Neovim
+          - zsh  # Shell
+          - zsh-theme-powerlevel10k  # Shell theme
+          - thefuck  # Corrects errors in previous console commands
+          - fzf  # Fuzzy finder
+          - fd  # Alternative to 'find'
+          - ripgrep  # Alternative to 'grep'
+          - httpie  # Command-line HTTP client
+          - profile-sync-daemon  # Store browser profiles in tmpfs
+          - borgmatic  # Configuration-driven backup software
+          # Programs
+          - firefox  # Web browser
+          - chromium  # Web browser
+          - torbrowser-launcher  # Tor web browser
+          - thunderbird  # Mail client
+          - keepassxc  # Password manager
+          - goldendict  # Dictionary
+          - mpv  # Command line video player (used by goldendict)
+          - calibre  # E-book manager
+          - qbittorrent  # Torrent client
+          - gimp  # Image editor
+          - copyq  # Clipboard manager
+          - flameshot  # Screenshot tool
+          - peek  # GIF recorder
+          - telegram-desktop  # Instant messenger
+          - discord  # Voice and text chat
+          # Development
+          - python-pipenv
+          - python-virtualenvwrapper
+          - clang
+          - jdk-openjdk
+          - docker
+          # - docker-compose  # Manjaro has a broken version (1.27.0-1)
+          - kubectl
+          - helm
+          - k9s  # Kubernetes CLI
+          - hub
+          # Fonts
+          - ttf-jetbrains-mono
+        state: present
+
+    - name: Enable systemd services
+      systemd:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      with_items:
+        - docker.service
+        - fstrim.timer
+
+    - name: Enable systemd user services
+      systemd:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+        scope: user
+      with_items:
+        - psd.service
+      become_user: "{{ user }}"
+
+    - name: Create directories
+      file:
+        path: "{{ lookup('env','HOME') }}/.local/share/zsh/"
+        state: directory
+        recurse: yes
+      become_user: "{{ user }}"
+
+    - name: Install zsh plugins
+      git:
+        repo: "{{ item }}"
+        dest: "{{ lookup('env','HOME') }}/.local/share/zsh/{{ item.split('/')[-1] }}"
+        version: master
+      with_items:
+        - https://github.com/robbyrussell/oh-my-zsh
+      register: git_result
+      changed_when: "git_result.after|default('after') != git_result.before|default('before')"
+      become_user: "{{ user }}"
+
+    - name: Add flathub flatpak repository remote
+      flatpak_remote:
+        name: flathub
+        state: present
+        flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+
+    - name: Install flatpak packages
+      flatpak:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - com.dropbox.Client
+        - com.slack.Slack
+
+    # - name: Check yay presence
+    #   stat: "path=/usr/bin/yay"
+    #   register: yay
+
+    # - name: Download yay
+    #   git:
+    #     repo: https://aur.archlinux.org/yay.git
+    #     dest: "/tmp/yay"
+    #   when: not yay.stat.exists
+    #   notify:
+    #     - Install yay
+    #     - Install AUR packages
+    #   become_user: "{{ user }}"
+
+  # handlers:
+    # - name: Install yay
+    #   command: makepkg --syncdeps --install --noconfirm
+    #   args:
+    #     chdir: "/tmp/yay"
+
+    # - name: Install AUR packages
+    #   command:  "yay -S --noconfirm {{ item }}"
+    #   with_items:
+    #     - ttf-ms-fonts
+    #     - joplin
+    #     - slack-desktop

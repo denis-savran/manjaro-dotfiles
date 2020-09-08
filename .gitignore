@@ -1,0 +1,84 @@
+# IGNORE
+# ignore all directories and files by default
+/*
+
+# TRACK
+!.gitignore
+!.rc
+
+# ansible
+!ansible/
+
+# ssh
+!.ssh/
+.ssh/*
+!.ssh/config_example
+
+# config files
+!.ideavimrc
+!.pam_environment
+!.xprofile
+!.zshenv
+
+# config directories
+!.goldendict/
+.goldendict/*
+!.goldendict/article-style.css
+
+!.k9s/
+.k9s/*
+!.k9s/tracked_config.yml
+
+# config directory
+!.config/
+.config/*
+
+!.config/chromium-flags.conf
+
+!.config/git/
+!.config/nvim/
+!.config/rofi/
+
+# zsh
+!.config/zsh/
+.config/zsh/*
+!.config/zsh/.zprofile
+!.config/zsh/.zshrc
+!.config/zsh/aliases.sh
+!.config/zsh/functions.sh
+
+# nvim
+!.config/nvim/
+.config/nvim/*
+!.config/nvim/init.vim
+
+# psd
+!.config/psd/
+.config/psd/*
+!.config/psd/psd.conf
+
+# htop
+!.config/htop/
+.config/htop/*
+!.config/htop/tracked_htoprc
+
+# copyq
+!.config/copyq/
+.config/copyq/*
+!.config/copyq/copyq-commands.ini
+!.config/copyq/copyq.conf
+
+# vscode
+!.config/Code/
+.config/Code/*
+!.config/Code/User/
+.config/Code/User/*
+!.config/Code/User/keybindings.json
+!.config/Code/User/settings.json
+
+# ipython
+!.config/jupyter/
+.config/jupyter/*
+!.config/jupyter/profile_default/
+.config/jupyter/profile_default/*
+!.config/jupyter/profile_default/ipython_config.py
