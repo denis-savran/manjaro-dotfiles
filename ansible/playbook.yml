@@ -66,6 +66,8 @@
           - fd  # Alternative to 'find'
           - ripgrep  # Alternative to 'grep'
           - httpie  # Command-line HTTP client
+          - strace  # Trace system calls and signals
+          - ltrace  # A library call tracer
           - profile-sync-daemon  # Store browser profiles in tmpfs
           - borgmatic  # Configuration-driven backup software
           # Programs
@@ -76,6 +78,7 @@
           - keepassxc  # Password manager
           - goldendict  # Dictionary
           - mpv  # Command line video player (used by goldendict)
+          - xournalpp  # Handwriting notetaking software with PDF annotation support
           - calibre  # E-book manager
           - qbittorrent  # Torrent client
           - gimp  # Image editor
