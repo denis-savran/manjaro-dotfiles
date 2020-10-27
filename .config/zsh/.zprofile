@@ -15,7 +15,7 @@ export LESS
 export PAGER=less
 # Run commands G (go to the end of the file) and g (go back to the beginning of the file)
 # to properly calculate the position.
-export MANPAGER='less +Gg'
+# export MANPAGER='less +Gg'
 
 # https://wiki.archlinux.org/index.php/XDG_Base_Directory
 export XDG_CONFIG_HOME=$HOME/.config

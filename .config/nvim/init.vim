@@ -20,6 +20,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'https://github.com/rakr/vim-one'
     Plug 'https://github.com/vim-airline/vim-airline'
     Plug 'https://github.com/vim-airline/vim-airline-themes'
+    Plug 'https://github.com/machakann/vim-highlightedyank'
     Plug 'https://github.com/Yggdroot/indentLine'
     Plug 'https://github.com/google/vim-searchindex'
     Plug 'https://github.com/ap/vim-css-color'
@@ -128,6 +129,8 @@ set background=light
 colorscheme one
 let g:airline_theme='one'
 let g:airline_powerline_fonts=1
+let g:highlightedyank_highlight_duration = 200
+highlight HighlightedyankRegion cterm=reverse gui=reverse
 let g:indentLine_char='⎸'
 " Do not conceal characters (e.g. quotes in JSON file)
 let g:indentLine_concealcursor=''
