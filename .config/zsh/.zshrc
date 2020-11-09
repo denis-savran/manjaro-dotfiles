@@ -60,10 +60,6 @@ if [[ -d "/usr/share/zsh-theme-powerlevel10k" ]]; then
     . "/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme"
 fi
 
-# SSH-Agent
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ssh-agent
-zstyle :omz:plugins:ssh-agent agent-forwarding on
-
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
 plugins=(
     # Aliases
@@ -76,7 +72,6 @@ plugins=(
     # debian
 
     # Daemons
-    ssh-agent
     gpg-agent
 
     # Tools
@@ -89,6 +84,7 @@ plugins=(
 
     # Development
     git
+    mercurial
     gitignore
     pip
     virtualenvwrapper

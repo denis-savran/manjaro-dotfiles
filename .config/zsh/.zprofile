@@ -25,3 +25,10 @@ export XDG_DATA_HOME=$HOME/.local/share
 # Set configuration directories.
 export IPYTHONDIR=$XDG_CONFIG_HOME/jupyter
 export JUPYTER_CONFIG_DIR=$XDG_CONFIG_HOME/jupyter
+
+# SSH-Agent
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ssh-agent
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+if [[ -d "$XDG_DATA_HOME/zsh/oh-my-zsh/plugins/ssh-agent" ]]; then
+    . "$XDG_DATA_HOME/zsh/oh-my-zsh/plugins/ssh-agent/ssh-agent.plugin.zsh"
+fi
