@@ -104,6 +104,10 @@ if [[ -f "${XDG_CONFIG_HOME}/zsh/functions.sh" ]]; then
     . "${XDG_CONFIG_HOME}/zsh/functions.sh"
 fi
 
+if [[ -f "${XDG_CONFIG_HOME}/zsh/private.sh" ]]; then
+    . "${XDG_CONFIG_HOME}/zsh/private.sh"
+fi
+
 # Autosuggestions
 # https://github.com/zsh-users/zsh-autosuggestions/issues/363
 # if [[ -d "${XDG_DATA_HOME}/zsh/zsh-autosuggestions" ]]; then
