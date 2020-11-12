@@ -1,5 +1,5 @@
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/templates/zshrc.zsh-template
-export ZSH="/home/denis/.local/share/zsh/oh-my-zsh"
+export ZSH="$HOME/.local/share/zsh/oh-my-zsh"
 
 DISABLE_UPDATE_PROMPT="true"
 
