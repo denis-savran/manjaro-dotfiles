@@ -16,7 +16,7 @@
 
 # config files
 !.ideavimrc
-!.pam_environment
+!.profile
 !.xprofile
 !.zshenv
 
