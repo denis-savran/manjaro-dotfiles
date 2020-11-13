@@ -87,6 +87,7 @@
           - peek  # GIF recorder
           - telegram-desktop  # Instant messenger
           - discord  # Voice and text chat
+          - blueman  # Bluetooth Manager
           # Development
           - mercurial
           - python-pipenv
