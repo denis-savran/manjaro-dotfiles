@@ -60,7 +60,6 @@
           - neovim  # Text editor
           - python-pynvim  # Python plugins support in Neovim
           - zsh  # Shell
-          - zsh-theme-powerlevel10k  # Shell theme
           - thefuck  # Corrects errors in previous console commands
           - fzf  # Fuzzy finder
           - fd  # Alternative to 'find'
@@ -128,24 +127,6 @@
         - psd.service
       become_user: "{{ user }}"
 
-    - name: Create directories
-      file:
-        path: "{{ lookup('env','HOME') }}/.local/share/zsh/"
-        state: directory
-        recurse: yes
-      become_user: "{{ user }}"
-
-    - name: Install zsh plugins
-      git:
-        repo: "{{ item }}"
-        dest: "{{ lookup('env','HOME') }}/.local/share/zsh/{{ item.split('/')[-1] }}"
-        version: master
-      with_items:
-        - https://github.com/robbyrussell/oh-my-zsh
-      register: git_result
-      changed_when: "git_result.after|default('after') != git_result.before|default('before')"
-      become_user: "{{ user }}"
-
     - name: Add flathub flatpak repository remote
       flatpak_remote:
         name: flathub
@@ -159,30 +140,3 @@
       with_items:
         - com.dropbox.Client
         - com.slack.Slack
-
-    # - name: Check yay presence
-    #   stat: "path=/usr/bin/yay"
-    #   register: yay
-
-    # - name: Download yay
-    #   git:
-    #     repo: https://aur.archlinux.org/yay.git
-    #     dest: "/tmp/yay"
-    #   when: not yay.stat.exists
-    #   notify:
-    #     - Install yay
-    #     - Install AUR packages
-    #   become_user: "{{ user }}"
-
-  # handlers:
-    # - name: Install yay
-    #   command: makepkg --syncdeps --install --noconfirm
-    #   args:
-    #     chdir: "/tmp/yay"
-
-    # - name: Install AUR packages
-    #   command:  "yay -S --noconfirm {{ item }}"
-    #   with_items:
-    #     - ttf-ms-fonts
-    #     - joplin
-    #     - slack-desktop

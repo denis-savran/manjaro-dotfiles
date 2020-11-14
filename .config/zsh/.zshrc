@@ -1,13 +1,39 @@
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/templates/zshrc.zsh-template
 export ZSH="$HOME/.local/share/zsh/oh-my-zsh"
 
+### OMZ installer.
+# https://github.com/ohmyzsh/ohmyzsh
+if [[ ! -d "${ZSH}" ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing Oh My Zsh…%f"
+    command mkdir -p "${ZSH}"
+    command git clone https://github.com/ohmyzsh/ohmyzsh "${ZSH}" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+
+### Zinit installer.
+# https://github.com/zdharma/zinit
+# http://zdharma.org/zinit/wiki/INTRODUCTION/
+if [[ ! -d "$HOME/.zinit" ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing Zinit…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+
+# Load Zinit.
+. "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
 DISABLE_UPDATE_PROMPT="true"
 
 # History
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/history.zsh
 HIST_STAMPS="yyyy-mm-dd"
 # man zshparam
-HISTFILE="${XDG_DATA_HOME}/zsh/history"
+HISTFILE="$HOME/.zsh_history"
 HISTSIZE=125000
 SAVEHIST=100000
 # man zshoptions
@@ -56,9 +82,8 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
 # https://github.com/romkatv/powerlevel10k
-if [[ -d "/usr/share/zsh-theme-powerlevel10k" ]]; then
-    . "/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme"
-fi
+zinit depth=1 light-mode for \
+    romkatv/powerlevel10k
 
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
 plugins=(
@@ -94,29 +119,28 @@ plugins=(
     helm
 )
 
+# Load OMZ.
 . "${ZSH}/oh-my-zsh.sh"
 
-if [[ -f "${XDG_CONFIG_HOME}/zsh/aliases.sh" ]]; then
-    . "${XDG_CONFIG_HOME}/zsh/aliases.sh"
-fi
+# Load scripts.
+scripts=(
+    aliases.sh
+    functions.sh
+    custom.sh
+)
+for script in "${scripts[@]}"; do
+    script_path="${XDG_CONFIG_HOME}/zsh/${script}"
+    if [[ -f "${script_path}" ]]; then
+        . "${script_path}"
+    fi
+done
 
-if [[ -f "${XDG_CONFIG_HOME}/zsh/functions.sh" ]]; then
-    . "${XDG_CONFIG_HOME}/zsh/functions.sh"
-fi
-
-if [[ -f "${XDG_CONFIG_HOME}/zsh/private.sh" ]]; then
-    . "${XDG_CONFIG_HOME}/zsh/private.sh"
-fi
-
-# Autosuggestions
+# https://github.com/zsh-users/zsh-autosuggestions
 # https://github.com/zsh-users/zsh-autosuggestions/issues/363
-# if [[ -d "${XDG_DATA_HOME}/zsh/zsh-autosuggestions" ]]; then
-#     . "${XDG_DATA_HOME}/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-#     # ZSH_AUTOSUGGEST_IGNORE_WIDGETS+=(backward-kill-word)
-# fi
+zinit wait lucid atload'_zsh_autosuggest_start' light-mode for \
+    zsh-users/zsh-autosuggestions
+# ZSH_AUTOSUGGEST_IGNORE_WIDGETS+=(backward-kill-word)
 
-# Syntax highlighting
+# https://github.com/zsh-users/zsh-syntax-highlighting
 # Source command must be at the end of the file!
-if [[ -d "/usr/share/zsh/plugins/zsh-syntax-highlighting" ]]; then
-    . "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-fi
+zinit light zsh-users/zsh-syntax-highlighting
