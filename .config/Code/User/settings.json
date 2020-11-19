@@ -334,10 +334,6 @@
         "*.rsp": "json",
         "*.req": "json"
     },
-    "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/bin/fcitx-remote",
-    "vim.autoSwitchInputMethod.switchIMCmd": "/usr/bin/fcitx-remote -t {im}",
-    "vim.autoSwitchInputMethod.defaultIM": "1",
-    "vim.autoSwitchInputMethod.enable": true,
     "editor.cursorBlinking": "solid",
     "vim.sneak": true,
     "vim.sneakReplacesF": true,
