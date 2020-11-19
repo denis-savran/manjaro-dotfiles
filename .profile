@@ -61,9 +61,7 @@ export PROJECT_HOME=$HOME/PycharmProjects
 SSH_ENV="$HOME/.ssh/environment"
 
 function start_agent() {
-    echo "Initializing a new SSH agent"
     ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-    echo "Successfully initialized the SSH agent"
     chmod 600 "${SSH_ENV}"
     . "${SSH_ENV}" > /dev/null
 }
