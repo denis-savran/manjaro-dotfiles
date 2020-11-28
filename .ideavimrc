@@ -67,13 +67,18 @@ vnoremap <leader>p :action FindInPath<cr>
 nnoremap <leader>P :action ReplaceInPath<cr>
 vnoremap <leader>P :action ReplaceInPath<cr>
 
+" Open external tools groups window.
+" nnoremap \e :action ExternalToolsGroup<cr>
+" Open 'External Tools' group window.
+nnoremap \e :action ExternalTools_External Tools<cr>
+" Run luastyle external tool.
+" nnoremap \e :action Tool_External Tools_luastyle<cr>
 nnoremap \r :action Refactorings.QuickListPopupAction<cr>
 nnoremap \y :action ShowUmlDiagramPopup<cr>
 nnoremap \Y :action ShowUmlDiagram<cr>
 nnoremap \i :action OptimizeImports<cr>
-nnoremap \o :action Tool_External Tools_Black<cr>
-nnoremap \O :action ReformatCode<cr>
-vnoremap \O :action ReformatCode<cr>
+nnoremap \o :action ReformatCode<cr>
+vnoremap \o :action ReformatCode<cr>
 
 " MIDDLE ROW
 nnoremap <leader>a :action GotoAction<cr>
