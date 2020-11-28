@@ -82,3 +82,11 @@
 !.config/jupyter/profile_default/
 .config/jupyter/profile_default/*
 !.config/jupyter/profile_default/ipython_config.py
+
+# gnome
+!.config/gtk-3.0/
+!.config/gtk-4.0/
+.config/gtk-3.0/*
+.config/gtk-4.0/*
+!.config/gtk-3.0/gtk.css
+!.config/gtk-4.0/gtk.css
