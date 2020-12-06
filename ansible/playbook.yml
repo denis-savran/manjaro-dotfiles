@@ -140,3 +140,8 @@
       with_items:
         - com.dropbox.Client
         - com.slack.Slack
+
+    - name: Install snap packages
+      snap:
+        name:
+          - joplin-james-carroll
