@@ -135,6 +135,8 @@ for script in "${scripts[@]}"; do
     fi
 done
 
+. ~/perl5/perlbrew/etc/bashrc
+
 # https://github.com/zsh-users/zsh-autosuggestions
 # https://github.com/zsh-users/zsh-autosuggestions/issues/363
 zinit wait lucid atload'_zsh_autosuggest_start' light-mode for \
