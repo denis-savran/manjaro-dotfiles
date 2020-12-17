@@ -91,6 +91,10 @@
           - mercurial
           - python-pipenv
           - python-virtualenvwrapper
+          - python-pre-commit
+          - python-isort
+          - python-black
+          - flake8
           - clang
           - jdk-openjdk
           - luarocks
