@@ -77,6 +77,7 @@
           - keepassxc  # Password manager
           - goldendict  # Dictionary
           - mpv  # Command line video player (used by goldendict)
+          - smplayer  # `mpv` front-end
           - xournalpp  # Handwriting notetaking software with PDF annotation support
           - calibre  # E-book manager
           - qbittorrent  # Torrent client
