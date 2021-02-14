@@ -14,6 +14,10 @@ if [[ -d "$HOME/.local/bin" ]] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+if [[ -d "$HOME/.platformio/penv/bin" ]] ; then
+    PATH="$PATH:$HOME/.platformio/penv/bin"
+fi
+
 export EDITOR=nvim
 
 # Output ANSI "color" escape sequences in "raw" form.
