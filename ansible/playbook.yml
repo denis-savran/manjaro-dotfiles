@@ -54,7 +54,9 @@
           - appmenu-gtk-module  # Application menu (Global Menu widget)
           - libdbusmenu-glib  # Application menu (Global Menu widget)
           # Terminal programs
+          - manjaro-tools-base  # Manjaro installation tools (fstabgen and manjaro-chroot)
           - pacman-contrib  # Additional pacman tools
+          - at  # Queue jobs for later execution (used in udev rules)
           - xcape  # Use modifier key as another key when pressed and released on it's own
           - xclip  # Command line interface to X clipboard (used by other programs)
           - neovim  # Text editor
