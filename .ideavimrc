@@ -29,6 +29,8 @@ set argtextobj
 set exchange
 set textobj-entire
 set highlightedyank
+set NERDTree
+
 let g:highlightedyank_highlight_duration = "200"
 
 " Reread the configuration file
